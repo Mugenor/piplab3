@@ -30,6 +30,6 @@
     <orderEntry type="library" scope="PROVIDED" name="GlassFish 4.1.2 - JSF" level="application_server_libraries" />
     <orderEntry type="library" name="IceFaces-3.1.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="GlassFish 4.1.2 - JSON Processing (JSR 353)" level="application_server_libraries" />
-    <orderEntry type="library" name="com.google.code.maven-play-plugin.postgresql:postgresql:9.0-801.jdbc4-patched-play-1.2.3" level="project" />
+    <orderEntry type="library" name="org.postgresql:postgresql:42.2.0.jre7-SNAPSHOT" level="project" />
   </component>
 </module>

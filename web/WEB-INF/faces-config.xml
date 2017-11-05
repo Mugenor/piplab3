@@ -3,5 +3,18 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
     http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
-
+    <managed-bean>
+        <managed-bean-name>controller</managed-bean-name>
+        <managed-bean-class>Controller</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+        <managed-property>
+            <property-name>dao</property-name>
+            <value>#{dao}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>dao</managed-bean-name>
+        <managed-bean-class>DAO</managed-bean-class>
+        <managed-bean-scope>none</managed-bean-scope>
+    </managed-bean>
 </faces-config>

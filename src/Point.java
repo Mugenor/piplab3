@@ -50,4 +50,10 @@ public class Point implements Serializable {
     public boolean isHitted() {
         return isHitted;
     }
+    public String toString(){
+        return "[\"x\":" + x +
+                ", \"y\":" + y +
+                ", \"r\":" + r +
+                ", \"isHitted\":" + isHitted + "]";
+    }
 }
