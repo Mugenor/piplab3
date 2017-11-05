@@ -19,7 +19,6 @@ public class DAO {
             pooledDataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
             pooledConnection = pooledDataSource.getPooledConnection("postgres", "qwerty");
     }
-
     public void addPoint(Point point) throws SQLException{
         Connection connection = pooledConnection.getConnection();
         Statement statement = connection.createStatement();

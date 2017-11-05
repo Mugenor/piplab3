@@ -1,3 +1,4 @@
+import javax.annotation.PostConstruct;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -23,5 +24,9 @@ public class Controller {
 
     public void setPoints(List<Point> points) {
         this.points = points;
+    }
+    @PostConstruct
+    public void initList() throws SQLException{
+        points = dao.getAllPoints();
     }
 }
