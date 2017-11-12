@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+<<<<<<< HEAD
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
 
@@ -24,4 +25,40 @@
        </h:form>
    </f:view>
 </h:body>
+=======
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+    <h:head>
+    <h:outputScript>
+        function changeX(x) {
+            document.getElementById('form:pseudoX').value=x.toString();
+        }
+        function changeR() {
+            var r = document.getElementById('form:r_hidden').value;
+            document.getElementById('form:pseudoR').value=r;
+        }
+    </h:outputScript>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <div>
+                <h:commandButton onclick="changeX(-2.0);" value="-2.0"/>
+                <h:commandButton onclick="changeX(-1.5);" value="-1.5"/>
+                <h:commandButton onclick="changeX(-1.0);" value="-1.0"/>
+                <h:commandButton onclick="changeX(-0.5);" value="-0.5"/>
+                <h:commandButton onclick="changeX(0.0);" value="0.0"/>
+                <h:commandButton onclick="changeX(0.5);" value="0.5"/>
+                <h:commandButton onclick="changeX(1.0);" value="1.0"/>
+                <h:commandButton onclick="changeX(1.5);" value="1.5"/>
+                <h:commandButton onclick="changeX(2.0);" value="2.0"/>
+            </div>
+            <h:inputText id="pseudoX" value="0.0" rendered="false"/><br/>
+            <h:inputText id="y" value="0.0" required="true"/><br/>
+            <h:inputText id="pseudoR" value="1.0" rendered="false"/><br/>
+            <ace:sliderEntry onSlideEnd="changeR()" id="r" length="100px" min="1" max="4" stepPercent="16.6666666666666666666" showLabels="true"/>
+            <h:commandButton action="#{controller.addPoint}" value="Add point"/><br/>
+        </h:form>
+    </h:body>
+    <!--valueChangeListener="#{controller.rChanged}" value="#{controller.point.r}"-->
+>>>>>>> 1c853117a5dc285306d15ddd3e2bde2004e059c9
 </html>
