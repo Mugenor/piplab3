@@ -2,7 +2,6 @@ import org.postgresql.ds.PGConnectionPoolDataSource;
 
 import javax.annotation.PreDestroy;
 import javax.sql.PooledConnection;
-import javax.sql.RowSet;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
