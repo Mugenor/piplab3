@@ -7,7 +7,7 @@ public class Point implements Serializable {
     private double x;
     private double y;
     private double r;
-    private boolean isHitted;
+    private boolean hitted;
     public Point(){}
     public Point(double x, double y, double r){
         this.x = x;
@@ -20,11 +20,11 @@ public class Point implements Serializable {
         if((y<=(x/2.0 + r/2.0) && y>=0.0 && x<=0.0)
                 || (x>=-r && x<=0.0 && y>=-r/2.0 && y<=0.0)
                 || (x>=0.0 && y<=0.0 && (x*x+y*y)<=r*r)) {
-            isHitted = true;
+            hitted = true;
         } else {
-            isHitted = false;
+            hitted = false;
         }
-        return isHitted;
+        return hitted;
     }
     public double getX() {
         System.out.println("getX: " + this);
@@ -58,12 +58,12 @@ public class Point implements Serializable {
 
     public boolean isHitted() {
         System.out.println("isHitted: " + this);
-        return isHitted;
+        return hitted;
     }
     public String toString(){
         return "[\"x\":" + x +
                 ", \"y\":" + y +
                 ", \"r\":" + r +
-                ", \"isHitted\":" + isHitted + "]";
+                ", \"isHitted\":" + hitted + "]";
     }
 }
