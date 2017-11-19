@@ -52,13 +52,158 @@
                 <h:commandButton onclick="changeX(1.5);" value="1.5"/>
                 <h:commandButton onclick="changeX(2.0);" value="2.0"/>
             </div>
-            <h:inputText id="pseudoX" value="0.0" rendered="false"/><br/>
-            <h:inputText id="y" value="0.0" required="true"/><br/>
-            <h:inputText id="pseudoR" value="1.0" rendered="false"/><br/>
-            <ace:sliderEntry onSlideEnd="changeR()" id="r" length="100px" min="1" max="4" stepPercent="16.6666666666666666666" showLabels="true"/>
-            <h:commandButton action="#{controller.addPoint}" value="Add point"/><br/>
+            <h:inputText id="pseudoX" value="#{controller.point.x}" rendered="true" required="true"
+                         requiredMessage="required" converterMessage="not a valid number" validatorMessage="from -2 to 2">
+                <f:validateLength minimum="1" maximum="5"/>
+                <f:validateDoubleRange minimum="-2.0" maximum="2.0"/>
+            </h:inputText>
+            <h:message id="mesX" for="pseudoX"/>
+            <br/>
+
+            <h:inputText id="y" value="#{controller.point.y}" rendered="true" required="true"
+                         requiredMessage="required" converterMessage="not a valid number" validatorMessage="from -3 to 5">
+                <f:validateLength minimum="1" maximum="5"/>
+                <f:validateDoubleRange minimum="-3.0" maximum="5.0"/>
+            </h:inputText>
+            <h:message id="mesY" for="y"/>
+            <br/>
+
+            <h:inputText id="pseudoR" value="#{controller.point.r}" rendered="true" required="true"
+                         requiredMessage="required" converterMessage="not a valid number" validatorMessage="from 1 to 4">
+                <f:validateLength minimum="1" maximum="5"/>
+                <f:validateDoubleRange minimum="1.0" maximum="4.0"/>
+            </h:inputText>
+            <h:message for="pseudoR" id="mesR"/>
+            <br/>
+            <ace:sliderEntry onSlideEnd="changeR(); repaintCanvas();" id="r" length="100px" min="1" max="4" stepPercent="16.6666666666666666666" showLabels="true"/>
+            <h:commandButton id="addButton" value="Add point">
+                <f:ajax onevent="printPoint();" event="click" execute="pseudoX y pseudoR" listener="#{controller.addPoint}" render="table mesX mesY mesR"/>
+            </h:commandButton><br/>
         </h:form>
+<<<<<<< HEAD
     </h:body>
     <!--valueChangeListener="#{controller.rChanged}" value="#{controller.point.r}"-->
 >>>>>>> 1c853117a5dc285306d15ddd3e2bde2004e059c9
+=======
+        <h:dataTable id="table" value="#{controller.points}" var="o">
+            <h:column>
+                <f:facet name="header">X</f:facet>
+                #{o.x}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Y</f:facet>
+                #{o.y}
+            </h:column>
+            <h:column>
+                <f:facet name="header">R</f:facet>
+                #{o.r}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Is Hitted</f:facet>
+                #{o.hitted}
+            </h:column>
+        </h:dataTable>
+        <canvas id="canvas" width="500px" height="400px"/>
+    <h:outputScript>
+        //ПЕРЕРИСОВАТЬ КАНВАС
+        var printCanvas = function (valueR) {
+            var canvas = document.getElementById("canvas"),
+                ctx = canvas.getContext('2d');
+            var halfX = canvas.width/2;
+            var halfY = canvas.height/2;
+            var mult = canvas.width/10;
+            var padXS = canvas.width/10;
+            var padYS = canvas.height/10;
+            var padXsmall = canvas.width/7.5;
+            var padYsmall = canvas.height/40;
+            function axis(x, y) {
+                ctx.moveTo(halfX, halfY);
+                ctx.lineTo(x, y);
+            }
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#22b9ff";
+            ctx.strokeStyle = "#22b9ff";
+            ctx.beginPath();
+            ctx.arc(halfX, halfY, valueR*mult, 3/2*Math.PI, Math.PI, true);
+            ctx.lineTo(halfX, halfY);
+            ctx.lineTo(halfX, halfY + valueR*mult);
+            ctx.lineTo(halfX + valueR/2.0*mult, halfY);
+            ctx.lineTo(halfX + valueR/2.0*mult, halfY - valueR*mult);
+            ctx.lineTo(halfX, halfY - valueR*mult);
+            ctx.stroke();
+            ctx.fill();
+            ctx.closePath();
+            ctx.beginPath();
+            ctx.strokeStyle = "black";
+            axis(halfX, padYsmall);
+            ctx.lineTo(halfX - 3, padYS);
+            ctx.moveTo(halfX, padYsmall);
+            ctx.lineTo(halfX + 3, padYS);
+            axis(halfX, canvas.height - padYsmall);
+            ctx.lineTo(halfX - 3, canvas.height-padYS);
+            ctx.moveTo(halfX, canvas.height - padYsmall);
+            ctx.lineTo(halfX + 3, canvas.height-padYS);
+            axis(padXS, halfY);
+            ctx.lineTo(padXsmall, halfY - 3);
+            ctx.moveTo(padXS, halfY);
+            ctx.lineTo(padXsmall, halfY + 3);
+            axis(canvas.width - padXS, halfY);
+            ctx.lineTo(canvas.width - padXsmall, halfY - 3);
+            ctx.moveTo(canvas.width - padXS, halfY);
+            ctx.lineTo(canvas.width - padXsmall, halfY + 3);
+            ctx.stroke();
+            ctx.closePath();
+            ctx.fillStyle = "black";
+            ctx.strokeStyle = "black";
+            ctx.font = (valueR*5.5 > 11) ? "11pt Arial" : valueR*5.5 + "pt Arial";
+            ctx.fillText("0", halfX - valueR*5, halfY + valueR*7);
+            ctx.fillText(valueR/2, halfX - valueR*2 + valueR/2.0*mult, halfY + valueR*7);
+            ctx.fillText(valueR, halfX - valueR*2 + valueR*mult, halfY + valueR*7);
+            ctx.fillText(valueR, halfX + valueR*2, halfY + valueR*3 - valueR*mult);
+            ctx.fillText(valueR/2, halfX + valueR*2, halfY + valueR*3 - valueR*mult/2);
+            ctx.fillText(-valueR, halfX - valueR*5 - valueR*mult, halfY + valueR*7);
+            ctx.fillText(-valueR/2, halfX - valueR*5 - valueR/2*mult, halfY + valueR*7);
+            ctx.fillText(-valueR, halfX + valueR*2, halfY + valueR*2 + valueR*mult);
+            ctx.fillText(-valueR/2, halfX + valueR*2, halfY + valueR*2 + valueR*mult/2);
+            ctx.moveTo(halfX - valueR*mult, halfY - 3);
+            ctx.lineTo(halfX - valueR*mult, halfY + 3);
+            ctx.moveTo(halfX - valueR/2*mult, halfY - 3);
+            ctx.lineTo(halfX - valueR/2*mult, halfY + 3);
+            ctx.moveTo(halfX + valueR/2*mult, halfY - 3);
+            ctx.lineTo(halfX + valueR/2*mult, halfY + 3);
+            ctx.moveTo(halfX + valueR*mult, halfY - 3);
+            ctx.lineTo(halfX + valueR*mult, halfY + 3);
+            ctx.moveTo(halfX - 3, halfY - valueR*mult);
+            ctx.lineTo(halfX + 3, halfY - valueR*mult);
+            ctx.moveTo(halfX - 3, halfY - valueR/2*mult);
+            ctx.lineTo(halfX + 3, halfY - valueR/2*mult);
+            ctx.moveTo(halfX - 3, halfY + valueR/2*mult);
+            ctx.lineTo(halfX + 3, halfY + valueR/2*mult);
+            ctx.moveTo(halfX - 3, halfY + valueR*mult);
+            ctx.lineTo(halfX + 3, halfY + valueR*mult);
+            ctx.stroke();
+
+        };
+        printCanvas(2);
+        var canvas = document.getElementById("canvas");
+        var addPointButton = document.getElementById("form:addButton");
+        canvas.onlick = function (event) {
+            //ПРИСВОИТЬ ПОЛЯМ X Y КООРДИНАТЫ ТОЧЕК
+            addPointButton.click();
+            //НАРИСОВАТЬ ТОЧКУ
+            //ВЕРНУТЬ ПОЛЯМ X Y СТАРЫЕ ЗНАЧЕНИЯ
+        }
+        //РЕАЛИЗОВАТЬ ЭТУ ФУНКЦИЮ ДЛЯ ПЕРЕРИСОВЫВАНИЯ КАНВАСА
+        function repaintCanvas() {
+
+        }
+        //РЕАЛИЗОВАТЬ ЭТУ ФУНКЦИЮ ДЛЯ РИСОВАНИЯ ТОЧКИ ПРИ ИСПОЛЬЗОВАНИИ КНОПКИ addPoint
+        function printPoint() {
+            
+        }
+    </h:outputScript>
+
+</h:body>
+>>>>>>> 3b6a016134a7880758e873220fcde58a2c857bdb
 </html>

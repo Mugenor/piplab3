@@ -1,6 +1,7 @@
 import javax.annotation.PostConstruct;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 import java.sql.SQLException;
 import java.util.List;
@@ -19,11 +20,12 @@ public class Controller {
         this.pseudoR = pseudoR;
     }
 
-    public void addPoint(){
+    public void addPoint(AjaxBehaviorEvent event){
         try {
-            System.out.println("controller.addPoint: " + point);
+            System.out.println("points: " + points);
             points.add(point);
             dao.addPoint(point);
+            point = new Point(point.getX(), point.getY(), point.getR());
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -69,6 +71,7 @@ public class Controller {
     @PostConstruct
     public void initList(){
         try {
+            point.setR(1.0);
             points = dao.getAllPoints();
         }catch (SQLException e){
             e.printStackTrace();
