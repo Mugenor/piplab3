@@ -7,6 +7,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ace="http://www.icefaces.org/icefaces/components">
     <h:head>
+        <link rel="shortcut icon" href="favicon.png" type="image/png" />
+        <title>Special For You</title>
         <h:outputStylesheet>
             body {
                 background-image: url(767.jpg);
@@ -81,7 +83,7 @@
                 P3211, вариант 372
             </div>
         </header>
-        <h:form id="form">
+        <h:form id="pseudo">
         <div id="right">
             <audio controls="x">
                 <source src="ariel.mp3" type="audio/mp3"/>
@@ -117,13 +119,6 @@
                 <h:commandButton onclick="changeX(1.5);" value="1.5"/>
                 <h:commandButton onclick="changeX(2.0);" value="2.0"/>
             </div>
-            <h:inputText id="pseudoX" styleClass="pseudo" value="#{controller.point.x}" rendered="true" required="true"
-                         requiredMessage="required" converterMessage="not a valid number" validatorMessage="from -2 to 2">
-                <f:validateLength minimum="1" maximum="5"/>
-                <f:validateDoubleRange minimum="-2.0" maximum="2.0"/>
-            </h:inputText>
-            <h:message id="mesX" for="pseudoX"/>
-            <br/>
             <h:inputText id="y" value="#{controller.point.y}" rendered="true" required="true"
                          requiredMessage="required" converterMessage="not a valid number" validatorMessage="from -3 to 5">
                 <f:validateLength minimum="1" maximum="5"/>
@@ -131,17 +126,24 @@
             </h:inputText>
             <h:message id="mesY" for="y"/>
             <br/>
-            <h:inputText id="pseudoR" styleClass="pseudo" value="#{controller.point.r}" rendered="true" required="true"
-                         requiredMessage="required" converterMessage="not a valid number" validatorMessage="from 1 to 4">
-            <f:validateLength minimum="1" maximum="5"/>
-            <f:validateDoubleRange minimum="1.0" maximum="4.0"/>
-        </h:inputText>
-            <h:message for="pseudoR" id="mesR"/>
-            <br/>
             <ace:sliderEntry onSlideEnd="changeR(); repaintCanvas();" id="r" length="100px" min="1" max="4" stepPercent="16.6666666666666666666" showLabels="true"/>
             <h:commandButton id="addButton" value="Add point">
                 <f:ajax onevent="printPoint();" event="click" execute="pseudoX y pseudoR" listener="#{controller.addPoint}" render="table mesX mesY mesR"/>
             </h:commandButton><br/>
+            <h:inputText id="pseudoX" styleClass="pseudo" value="#{controller.point.x}" rendered="true" required="true"
+                         requiredMessage="required" converterMessage="not a valid number" validatorMessage="from -2 to 2">
+                <f:validateLength minimum="1" maximum="5"/>
+                <f:validateDoubleRange minimum="-2.0" maximum="2.0"/>
+            </h:inputText>
+            <h:message id="mesX" for="pseudoX"/>
+            <br/>
+            <h:inputText id="pseudoR" styleClass="pseudo" value="#{controller.point.r}" rendered="true" required="true"
+                         requiredMessage="required" converterMessage="not a valid number" validatorMessage="from 1 to 4">
+                <f:validateLength minimum="1" maximum="5"/>
+                <f:validateDoubleRange minimum="1.0" maximum="4.0"/>
+            </h:inputText>
+            <h:message for="pseudoR" id="mesR"/>
+            <br/>
         </h:form>
         <canvas id="canvas" width="400px" height="300px"/>
     <h:outputScript>
