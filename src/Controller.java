@@ -67,6 +67,9 @@ public class Controller {
             FacesContext.getCurrentInstance().getRenderResponse();
         }
     }*/
+   public String toIndex(){
+       return "toindex";
+   }
 
     @PostConstruct
     public void initList(){
