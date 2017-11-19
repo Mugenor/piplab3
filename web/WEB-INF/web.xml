@@ -10,10 +10,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-<<<<<<< HEAD
-        <url-pattern>*.xhtml</url-pattern>
-    </servlet-mapping>
-=======
         <url-pattern>/icefaces/*</url-pattern>
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
@@ -29,5 +25,4 @@
         <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
         <param-value>true</param-value>
     </context-param>
->>>>>>> 1c853117a5dc285306d15ddd3e2bde2004e059c9
 </web-app>

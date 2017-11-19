@@ -1,16 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<<<<<<< HEAD
-<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
-    http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
-=======
 <faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
     http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
     metadata-complete="false">
->>>>>>> 1c853117a5dc285306d15ddd3e2bde2004e059c9
     <managed-bean>
         <managed-bean-name>controller</managed-bean-name>
         <managed-bean-class>Controller</managed-bean-class>
@@ -19,25 +12,19 @@
             <property-name>dao</property-name>
             <value>#{dao}</value>
         </managed-property>
-<<<<<<< HEAD
-=======
       <managed-property>
         <property-name>point</property-name>
         <value>#{point}</value>
       </managed-property>
->>>>>>> 1c853117a5dc285306d15ddd3e2bde2004e059c9
     </managed-bean>
     <managed-bean>
         <managed-bean-name>dao</managed-bean-name>
         <managed-bean-class>DAO</managed-bean-class>
         <managed-bean-scope>none</managed-bean-scope>
     </managed-bean>
-<<<<<<< HEAD
-=======
   <managed-bean>
     <managed-bean-name>point</managed-bean-name>
     <managed-bean-class>Point</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
   </managed-bean>
->>>>>>> 1c853117a5dc285306d15ddd3e2bde2004e059c9
 </faces-config>

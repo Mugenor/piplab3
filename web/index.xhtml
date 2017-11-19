@@ -4,28 +4,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-<<<<<<< HEAD
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head>
-
-</h:head>
-<h:body>
-
-   <f:view>
-       <h:form>
-           <h:commandButton action="#{controller.x}=-2.0"></h:commandButton>
-           <h:commandButton></h:commandButton>
-           <h:commandButton></h:commandButton>
-           <h:commandButton></h:commandButton>
-           <h:commandButton></h:commandButton>
-           <h:commandButton></h:commandButton>
-           <h:commandButton></h:commandButton>
-           <h:commandButton></h:commandButton>
-           <h:commandButton></h:commandButton>
-       </h:form>
-   </f:view>
-</h:body>
-=======
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ace="http://www.icefaces.org/icefaces/components">
     <h:head>
@@ -80,11 +58,6 @@
                 <f:ajax onevent="printPoint();" event="click" execute="pseudoX y pseudoR" listener="#{controller.addPoint}" render="table mesX mesY mesR"/>
             </h:commandButton><br/>
         </h:form>
-<<<<<<< HEAD
-    </h:body>
-    <!--valueChangeListener="#{controller.rChanged}" value="#{controller.point.r}"-->
->>>>>>> 1c853117a5dc285306d15ddd3e2bde2004e059c9
-=======
         <h:dataTable id="table" value="#{controller.points}" var="o">
             <h:column>
                 <f:facet name="header">X</f:facet>
@@ -105,17 +78,16 @@
         </h:dataTable>
         <canvas id="canvas" width="500px" height="400px"/>
     <h:outputScript>
-        //ПЕРЕРИСОВАТЬ КАНВАС
         var printCanvas = function (valueR) {
             var canvas = document.getElementById("canvas"),
                 ctx = canvas.getContext('2d');
             var halfX = canvas.width/2;
             var halfY = canvas.height/2;
-            var mult = canvas.width/10;
+            var mult = canvas.width/15;
             var padXS = canvas.width/10;
             var padYS = canvas.height/10;
-            var padXsmall = canvas.width/7.5;
-            var padYsmall = canvas.height/40;
+            var padXsmall = canvas.width/25;
+            var padYsmall = canvas.height/20;
             function axis(x, y) {
                 ctx.moveTo(halfX, halfY);
                 ctx.lineTo(x, y);
@@ -125,38 +97,39 @@
             ctx.fillStyle = "#22b9ff";
             ctx.strokeStyle = "#22b9ff";
             ctx.beginPath();
-            ctx.arc(halfX, halfY, valueR*mult, 3/2*Math.PI, Math.PI, true);
-            ctx.lineTo(halfX, halfY);
-            ctx.lineTo(halfX, halfY + valueR*mult);
-            ctx.lineTo(halfX + valueR/2.0*mult, halfY);
-            ctx.lineTo(halfX + valueR/2.0*mult, halfY - valueR*mult);
-            ctx.lineTo(halfX, halfY - valueR*mult);
+            ctx.moveTo(halfX, halfY);
+            ctx.lineTo(halfX, halfY - valueR*mult/2.0);
+            ctx.lineTo(halfX - valueR*mult, halfY);
+            ctx.lineTo(halfX,halfY);
+            ctx.rect(halfX - valueR*mult, halfY, valueR*mult, valueR*mult/2.0);
+            ctx.moveTo(halfX, halfY);
+            ctx.arc(halfX, halfY, valueR*mult, 1/2*Math.PI, 0, true);
             ctx.stroke();
             ctx.fill();
             ctx.closePath();
             ctx.beginPath();
+            ctx.fillStyle = "black";
             ctx.strokeStyle = "black";
             axis(halfX, padYsmall);
             ctx.lineTo(halfX - 3, padYS);
             ctx.moveTo(halfX, padYsmall);
             ctx.lineTo(halfX + 3, padYS);
             axis(halfX, canvas.height - padYsmall);
-            ctx.lineTo(halfX - 3, canvas.height-padYS);
-            ctx.moveTo(halfX, canvas.height - padYsmall);
-            ctx.lineTo(halfX + 3, canvas.height-padYS);
             axis(padXS, halfY);
-            ctx.lineTo(padXsmall, halfY - 3);
-            ctx.moveTo(padXS, halfY);
-            ctx.lineTo(padXsmall, halfY + 3);
             axis(canvas.width - padXS, halfY);
-            ctx.lineTo(canvas.width - padXsmall, halfY - 3);
+            ctx.lineTo(canvas.width - padXS - padXsmall, halfY - 3);
             ctx.moveTo(canvas.width - padXS, halfY);
-            ctx.lineTo(canvas.width - padXsmall, halfY + 3);
+            ctx.lineTo(canvas.width - padXS - padXsmall, halfY + 3);
             ctx.stroke();
+            ctx.font = "11pt Arial";
+            ctx.fillText("X", canvas.width - padXS - padXsmall + 3, halfY + padYsmall);
+            ctx.fillText("Y", halfX - padXsmall + 3, padYS - 3);
             ctx.closePath();
             ctx.fillStyle = "black";
             ctx.strokeStyle = "black";
             ctx.font = (valueR*5.5 > 11) ? "11pt Arial" : valueR*5.5 + "pt Arial";
+           // ctx.font = (valueR*5.5 ? 7) ? "10pt Arial" : valueR*5.5 + "pt Arial";
+            //КАК ИСПОЛЬЗОВАТЬ ЗНАК МЕНЬШЕ В JSF?
             ctx.fillText("0", halfX - valueR*5, halfY + valueR*7);
             ctx.fillText(valueR/2, halfX - valueR*2 + valueR/2.0*mult, halfY + valueR*7);
             ctx.fillText(valueR, halfX - valueR*2 + valueR*mult, halfY + valueR*7);
@@ -183,9 +156,8 @@
             ctx.moveTo(halfX - 3, halfY + valueR*mult);
             ctx.lineTo(halfX + 3, halfY + valueR*mult);
             ctx.stroke();
-
         };
-        printCanvas(2);
+        printCanvas(4);
         var canvas = document.getElementById("canvas");
         var addPointButton = document.getElementById("form:addButton");
         canvas.onlick = function (event) {
@@ -205,5 +177,4 @@
     </h:outputScript>
 
 </h:body>
->>>>>>> 3b6a016134a7880758e873220fcde58a2c857bdb
 </html>
