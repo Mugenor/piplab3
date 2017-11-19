@@ -55,7 +55,7 @@
             <br/>
             <ace:sliderEntry onSlideEnd="changeR(); repaintCanvas();" id="r" length="100px" min="1" max="4" stepPercent="16.6666666666666666666" showLabels="true"/>
             <h:commandButton id="addButton" value="Add point">
-                <f:ajax onevent="printPoint();" event="click" execute="pseudoX y pseudoR" listener="#{controller.addPoint}" render="table mesX mesY mesR"/>
+                <f:ajax onevent="addPoint" event="click" execute="pseudoX y pseudoR" listener="#{controller.addPoint}" render="table mesX mesY mesR"/>
             </h:commandButton><br/>
             <h:commandButton action="toBeginning" value="To beginning page"/>
         </h:form>
@@ -79,22 +79,40 @@
         </h:dataTable>
         <canvas id="canvas" width="500px" height="400px"/>
     <h:outputScript>
+        function contains(str, char){
+            for(var i=0;str.length>i;i++){
+                if(str.charAt(i) == char) return true;
+            }
+            return false;
+        }
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext('2d');
+        var mult = canvas.width/15;
+        var halfX = canvas.width/2;
+        var halfY = canvas.height/2;
+        function printPoint(x, y, color){
+            x = Number(x);
+            y = Number(y);
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2.0 + x * mult, canvas.height/2.0 - y * mult);
+            ctx.fillStyle = color;
+            ctx.arc(canvas.width/2.0 + x * mult, canvas.height/2.0 - y * mult, 4, 0, 2.0 * Math.PI, true);
+            ctx.fill();
+            ctx.closePath();
+        }
+        function axis(x, y) {
+            ctx.moveTo(halfX, halfY);
+            ctx.lineTo(x, y);
+        }
         var printCanvas = function (valueR) {
-            var canvas = document.getElementById("canvas"),
-                ctx = canvas.getContext('2d');
-            var halfX = canvas.width/2;
-            var halfY = canvas.height/2;
-            var mult = canvas.width/15;
             var padXS = canvas.width/10;
             var padYS = canvas.height/10;
             var padXsmall = canvas.width/25;
             var padYsmall = canvas.height/20;
-            function axis(x, y) {
-                ctx.moveTo(halfX, halfY);
-                ctx.lineTo(x, y);
-            }
+            ctx.beginPath();
             ctx.fillStyle = "white";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.closePath();
             ctx.fillStyle = "#22b9ff";
             ctx.strokeStyle = "#22b9ff";
             ctx.beginPath();
@@ -158,22 +176,49 @@
             ctx.lineTo(halfX + 3, halfY + valueR*mult);
             ctx.stroke();
         };
-        printCanvas(4);
-        var canvas = document.getElementById("canvas");
+        window.onload = function(){
+            repaintCanvas();
+        }
         var addPointButton = document.getElementById("form:addButton");
-        canvas.onlick = function (event) {
+        canvas.onclick = function (event) {
+            alert('onclick');
+            var x = (event.offsetX-canvas.width/2)/(canvas.width/10);
+            var y = (event.offsetY-canvas.height/2)/(-canvas.width/10);
+            var oldX = document.getElementById('form:pseudoX').value;
+            var oldY = document.getElementById('form:y').value;
+            document.getElementById('form:pseudoX').value = x;
+            document.getElementById('form:y').value = y;
             //ПРИСВОИТЬ ПОЛЯМ X Y КООРДИНАТЫ ТОЧЕК
             addPointButton.click();
+            addPoint({"status":"success"});
+            document.getElementById('form:pseudoX').value = x;
+            document.getElementById('form:y').value = y;
             //НАРИСОВАТЬ ТОЧКУ
             //ВЕРНУТЬ ПОЛЯМ X Y СТАРЫЕ ЗНАЧЕНИЯ
         }
-        //РЕАЛИЗОВАТЬ ЭТУ ФУНКЦИЮ ДЛЯ ПЕРЕРИСОВЫВАНИЯ КАНВАСА
         function repaintCanvas() {
-
+            var currentR = Number(document.getElementById('form:pseudoR').value);
+            printCanvas(currentR);
+            var points = document.getElementById('table').lastElementChild.children;
+            var r;
+            for(var i=0;points.length>i;i++){
+                r = Number(points[i].children[2].innerHTML);
+                if(r == currentR){
+                    printPoint(points[i].children[0].innerHTML, points[i].children[1].innerHTML, contains(points[i].children[3].innerHTML, 't') ? 'green' : 'red');
+                }
+            }
         }
-        //РЕАЛИЗОВАТЬ ЭТУ ФУНКЦИЮ ДЛЯ РИСОВАНИЯ ТОЧКИ ПРИ ИСПОЛЬЗОВАНИИ КНОПКИ addPoint
-        function printPoint() {
-            
+        function addPoint(data) {
+            var status = data.status;
+            switch(status){
+                case "success":
+                    var lastLine = document.getElementById('table').lastElementChild.lastElementChild;
+                    var thisX = lastLine.children[0].innerHTML;
+                    var thisY = lastLine.children[1].innerHTML;
+                    var thisIsHitted = lastLine.children[3].innerHTML;
+                    printPoint(thisX, thisY, contains(thisIsHitted, 't') ? 'green' : 'red');
+                    break;
+            }
         }
     </h:outputScript>
 
