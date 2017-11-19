@@ -24,13 +24,6 @@
             padding-right: 1.5%;
         }
 
-        #clock {
-            font-size: 130%;
-            float: left;
-            padding-left: 1%;
-            padding-top: 0.5%;
-        }
-
         #name {
             font-size: 270%;
         }
@@ -38,12 +31,23 @@
         #group {
             font-size: 150%;
         }
+
+        #clock {
+            float: left;
+            font-size: 130%;
+            margin-left: 1%;
+            margin-top: 0.5%;
+        }
+
         .linkButton {
-            background-color: #b2fdff;
-            margin-top: 20%;
-            margin-left: 20%;
-            width: 10%;
-            height: 10%;
+            float: right;
+            margin-top: 8px;
+            width: 15%;
+            outline: 3px solid #000000;
+            border: 3px solid #fff;
+            background: #b5fff8;
+            font-size: 12pt;
+            color: #001379;
         }
     </h:outputStylesheet>
     <h:outputScript>
@@ -67,11 +71,11 @@
             Чернов Илья, Клокова Елизавета
         </div>
         <div id="group">
-            P3211, вариант 306
-        </div><br/>
+            P3211, вариант 372
+        </div>
     </header>
     <h:form>
-        <h:commandButton styleClass="linkButton" action="toIndex" value="Special not for you!"/>
+        <h:commandButton styleClass="linkButton" action="toIndex" value="Special for you!"/>
     </h:form>
 </h:body>
 </html>
