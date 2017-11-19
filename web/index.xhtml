@@ -57,6 +57,7 @@
             <h:commandButton id="addButton" value="Add point">
                 <f:ajax onevent="printPoint();" event="click" execute="pseudoX y pseudoR" listener="#{controller.addPoint}" render="table mesX mesY mesR"/>
             </h:commandButton><br/>
+            <h:commandButton action="toBeginning" value="To beginning page"/>
         </h:form>
         <h:dataTable id="table" value="#{controller.points}" var="o">
             <h:column>
