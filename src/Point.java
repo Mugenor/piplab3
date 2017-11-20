@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class Point implements Serializable {
     private double x;
     private double y;
-    private double r;
+    private double r=1.0;
     private boolean hitted;
     public Point(){}
     public Point(double x, double y, double r){

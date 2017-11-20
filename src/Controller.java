@@ -23,6 +23,7 @@ public class Controller {
     public void addPoint(AjaxBehaviorEvent event){
         try {
             System.out.println("points: " + points);
+            point.checkHitted();
             points.add(point);
             dao.addPoint(point);
             point = new Point(point.getX(), point.getY(), point.getR());
@@ -55,21 +56,6 @@ public class Controller {
     public void setPoints(List<Point> points) {
         this.points = points;
     }
-
-   /* public void rChanged(ValueChangeEvent vce){
-        System.out.println("rChanged");
-        String oldVal = vce.getOldValue().toString();
-        if(oldVal!=null){
-            String newVal = vce.getNewValue().toString();
-            System.out.println(newVal);
-            point.setR(Double.parseDouble(newVal));
-            pseudoR.setValue(newVal);
-            FacesContext.getCurrentInstance().getRenderResponse();
-        }
-    }*/
-   public String toIndex(){
-       return "toindex";
-   }
 
     @PostConstruct
     public void initList(){
