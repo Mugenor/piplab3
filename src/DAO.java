@@ -24,7 +24,6 @@ public class DAO {
         }
     }
     public void addPoint(Point point) throws SQLException{
-        System.out.println("DAO.addPoint: " + point);
         Connection connection = pooledConnection.getConnection();
         Statement statement = connection.createStatement();
         statement.execute("insert into point(x, y, r, ishitted) VALUES (" + point.getX() + ", " + point.getY() + ", "

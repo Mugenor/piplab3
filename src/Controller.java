@@ -37,7 +37,6 @@ public class Controller {
     }
 
     public void setPoint(Point point) {
-        System.out.println("controller.setPoint: " + point);
         this.point = point;
     }
 

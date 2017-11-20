@@ -84,32 +84,6 @@
                 P3211, вариант 372
             </div>
         </header>
-        <h:form>
-        <div id="right">
-            <audio controls="x">
-                <source src="ariel.mp3" type="audio/mp3"/>
-            </audio>
-            <h:commandButton class="begin" action="toBeginning" value="To beginning page"/>
-            <h:dataTable id="table" class="table" value="#{controller.points}" var="o" border="1">
-                <h:column>
-                    <f:facet name="header">X</f:facet>
-                    #{o.x}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Y</f:facet>
-                    #{o.y}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">R</f:facet>
-                    #{o.r}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Is Hitted</f:facet>
-                    #{o.hitted}
-                </h:column>
-            </h:dataTable>
-        </div>
-        </h:form>
         <h:form id="form">
             <div>
                 <h:commandButton onclick="changeX(-2.0);" value="-2.0"/>
@@ -122,64 +96,92 @@
                 <h:commandButton onclick="changeX(1.5);" value="1.5"/>
                 <h:commandButton onclick="changeX(2.0);" value="2.0"/>
             </div>
-            <h:inputText id="pseudoX" styleClass="pseudo" value="#{controller.point.x}" rendered="true" required="true"
-                         requiredMessage="required" converterMessage="not a valid number" validatorMessage="from -2 to 2">
-                <f:validateLength minimum="1" maximum="5"/>
-                <f:validateDoubleRange minimum="-2.0" maximum="2.0"/>
+            <h:inputText maxlength="5" id="pseudoX" styleClass="pseudo" value="#{controller.point.x}" rendered="true" required="true"
+                         requiredMessage="required" converterMessage="not a valid number">
+                <f:validator validatorId="XValidator"/>
             </h:inputText>
             <h:message id="mesX" for="pseudoX"/>
             <br/>
-            <h:inputText id="y" value="#{controller.point.y}" rendered="true" required="true"
-                         requiredMessage="required" converterMessage="not a valid number" validatorMessage="from -3 to 5">
-                <f:validateLength minimum="1" maximum="5"/>
-                <f:validateDoubleRange minimum="-3.0" maximum="5.0"/>
+            <h:inputText maxlength="5" id="y" value="#{controller.point.y}" rendered="true" required="true"
+                         requiredMessage="required" converterMessage="not a valid number">
+                <f:validator validatorId="YValidator"/>
             </h:inputText>
             <h:message id="mesY" for="y"/>
             <br/>
-            <h:inputText id="pseudoR" styleClass="pseudo" value="#{controller.point.r}" rendered="true" required="true"
-                         requiredMessage="required" converterMessage="not a valid number" validatorMessage="from 1 to 4">
-            <f:validateLength minimum="1" maximum="5"/>
-            <f:validateDoubleRange minimum="1.0" maximum="4.0"/>
+            <h:inputText maxlength="5" id="pseudoR" styleClass="pseudo" value="#{controller.point.r}" rendered="true" required="true"
+                         requiredMessage="required" converterMessage="not a valid number">
+                <f:validator validatorId="RValidator"/>
         </h:inputText>
             <h:message for="pseudoR" id="mesR"/>
             <br/>
             <ace:sliderEntry onSlideEnd="changeR(); repaintCanvas();" id="r" length="100px" min="1" max="4" stepPercent="16.6666666666666666666" showLabels="true"/>
             <h:commandButton id="addButton" value="Add point">
-                <f:ajax onevent="addPoint" event="click" execute="pseudoX y pseudoR" listener="#{controller.addPoint}" render="table mesX mesY mesR"/>
+                <f:ajax onevent="addPoint" event="click" execute="form:pseudoX form:y form:pseudoR" listener="#{controller.addPoint}" render="secondForm:table mesX mesY mesR"/>
             </h:commandButton><br/>
+        </h:form>
+
+        <h:form id="secondForm">
+            <div id="right">
+                <audio controls="x">
+                    <source src="ariel.mp3" type="audio/mp3"/>
+                </audio>
+                <h:commandButton class="begin" action="toBeginning" value="To beginning page"/>
+                <h:dataTable id="table" class="table" value="#{controller.points}" var="o" border="1">
+                    <h:column>
+                        <f:facet name="header">X</f:facet>
+                        #{o.x}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Y</f:facet>
+                        #{o.y}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">R</f:facet>
+                        #{o.r}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Is Hitted</f:facet>
+                        #{o.hitted}
+                    </h:column>
+                </h:dataTable>
+            </div>
         </h:form>
         <canvas id="canvas" width="400px" height="300px"/>
     <h:outputScript>
-        function contains(str, char){
-            for(var i=0;str.length>i;i++){
-                if(str.charAt(i) == char) return true;
+        function contains(str, char) {
+            for (var i = 0; str.length > i; i++) {
+                if (str.charAt(i) == char) return true;
             }
             return false;
         }
+
         var canvas = document.getElementById("canvas");
         var ctx = canvas.getContext('2d');
-        var mult = canvas.width/15;
-        var halfX = canvas.width/2;
-        var halfY = canvas.height/2;
-        function printPoint(x, y, color){
+        var mult = canvas.width / 15;
+        var halfX = canvas.width / 2;
+        var halfY = canvas.height / 2;
+
+        function printPoint(x, y, color) {
             x = Number(x);
             y = Number(y);
             ctx.beginPath();
-            ctx.moveTo(canvas.width/2.0 + x * mult, canvas.height/2.0 - y * mult);
+            ctx.moveTo(canvas.width / 2.0 + x * mult, canvas.height / 2.0 - y * mult);
             ctx.fillStyle = color;
-            ctx.arc(canvas.width/2.0 + x * mult, canvas.height/2.0 - y * mult, 4, 0, 2.0 * Math.PI, true);
+            ctx.arc(canvas.width / 2.0 + x * mult, canvas.height / 2.0 - y * mult, 4, 0, 2.0 * Math.PI, true);
             ctx.fill();
             ctx.closePath();
         }
+
         function axis(x, y) {
             ctx.moveTo(halfX, halfY);
             ctx.lineTo(x, y);
         }
+
         var printCanvas = function (valueR) {
-            var padXS = canvas.width/10;
-            var padYS = canvas.height/10;
-            var padXsmall = canvas.width/25;
-            var padYsmall = canvas.height/20;
+            var padXS = canvas.width / 10;
+            var padYS = canvas.height / 10;
+            var padXsmall = canvas.width / 25;
+            var padYsmall = canvas.height / 20;
             ctx.beginPath();
             ctx.fillStyle = "white";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -188,12 +190,12 @@
             ctx.strokeStyle = "#22b9ff";
             ctx.beginPath();
             ctx.moveTo(halfX, halfY);
-            ctx.lineTo(halfX, halfY - valueR*mult/2.0);
-            ctx.lineTo(halfX - valueR*mult, halfY);
-            ctx.lineTo(halfX,halfY);
-            ctx.rect(halfX - valueR*mult, halfY, valueR*mult, valueR*mult/2.0);
+            ctx.lineTo(halfX, halfY - valueR * mult / 2.0);
+            ctx.lineTo(halfX - valueR * mult, halfY);
+            ctx.lineTo(halfX, halfY);
+            ctx.rect(halfX - valueR * mult, halfY, valueR * mult, valueR * mult / 2.0);
             ctx.moveTo(halfX, halfY);
-            ctx.arc(halfX, halfY, valueR*mult, 1/2*Math.PI, 0, true);
+            ctx.arc(halfX, halfY, valueR * mult, 1 / 2 * Math.PI, 0, true);
             ctx.stroke();
             ctx.fill();
             ctx.closePath();
@@ -217,77 +219,81 @@
             ctx.closePath();
             ctx.fillStyle = "black";
             ctx.strokeStyle = "black";
-            ctx.font = (valueR*5.5 > 11) ? "11pt Arial" : valueR*5.5 + "pt Arial";
-           // ctx.font = (valueR*5.5 ? 7) ? "10pt Arial" : valueR*5.5 + "pt Arial";
+            ctx.font = (valueR * 5.5 > 11) ? "11pt Arial" : valueR * 5.5 + "pt Arial";
+            // ctx.font = (valueR*5.5 ? 7) ? "10pt Arial" : valueR*5.5 + "pt Arial";
             //КАК ИСПОЛЬЗОВАТЬ ЗНАК МЕНЬШЕ В JSF?
-            ctx.fillText("0", halfX - valueR*5, halfY + valueR*7);
-            ctx.fillText(valueR/2, halfX - valueR*2 + valueR/2.0*mult, halfY + valueR*7);
-            ctx.fillText(valueR, halfX - valueR*2 + valueR*mult, halfY + valueR*7);
-            ctx.fillText(valueR, halfX + valueR*2, halfY + valueR*3 - valueR*mult);
-            ctx.fillText(valueR/2, halfX + valueR*2, halfY + valueR*3 - valueR*mult/2);
-            ctx.fillText(-valueR, halfX - valueR*5 - valueR*mult, halfY + valueR*7);
-            ctx.fillText(-valueR/2, halfX - valueR*5 - valueR/2*mult, halfY + valueR*7);
-            ctx.fillText(-valueR, halfX + valueR*2, halfY + valueR*2 + valueR*mult);
-            ctx.fillText(-valueR/2, halfX + valueR*2, halfY + valueR*2 + valueR*mult/2);
-            ctx.moveTo(halfX - valueR*mult, halfY - 3);
-            ctx.lineTo(halfX - valueR*mult, halfY + 3);
-            ctx.moveTo(halfX - valueR/2*mult, halfY - 3);
-            ctx.lineTo(halfX - valueR/2*mult, halfY + 3);
-            ctx.moveTo(halfX + valueR/2*mult, halfY - 3);
-            ctx.lineTo(halfX + valueR/2*mult, halfY + 3);
-            ctx.moveTo(halfX + valueR*mult, halfY - 3);
-            ctx.lineTo(halfX + valueR*mult, halfY + 3);
-            ctx.moveTo(halfX - 3, halfY - valueR*mult);
-            ctx.lineTo(halfX + 3, halfY - valueR*mult);
-            ctx.moveTo(halfX - 3, halfY - valueR/2*mult);
-            ctx.lineTo(halfX + 3, halfY - valueR/2*mult);
-            ctx.moveTo(halfX - 3, halfY + valueR/2*mult);
-            ctx.lineTo(halfX + 3, halfY + valueR/2*mult);
-            ctx.moveTo(halfX - 3, halfY + valueR*mult);
-            ctx.lineTo(halfX + 3, halfY + valueR*mult);
+            ctx.fillText("0", halfX - valueR * 5, halfY + valueR * 7);
+            ctx.fillText(valueR / 2, halfX - valueR * 2 + valueR / 2.0 * mult, halfY + valueR * 7);
+            ctx.fillText(valueR, halfX - valueR * 2 + valueR * mult, halfY + valueR * 7);
+            ctx.fillText(valueR, halfX + valueR * 2, halfY + valueR * 3 - valueR * mult);
+            ctx.fillText(valueR / 2, halfX + valueR * 2, halfY + valueR * 3 - valueR * mult / 2);
+            ctx.fillText(-valueR, halfX - valueR * 5 - valueR * mult, halfY + valueR * 7);
+            ctx.fillText(-valueR / 2, halfX - valueR * 5 - valueR / 2 * mult, halfY + valueR * 7);
+            ctx.fillText(-valueR, halfX + valueR * 2, halfY + valueR * 2 + valueR * mult);
+            ctx.fillText(-valueR / 2, halfX + valueR * 2, halfY + valueR * 2 + valueR * mult / 2);
+            ctx.moveTo(halfX - valueR * mult, halfY - 3);
+            ctx.lineTo(halfX - valueR * mult, halfY + 3);
+            ctx.moveTo(halfX - valueR / 2 * mult, halfY - 3);
+            ctx.lineTo(halfX - valueR / 2 * mult, halfY + 3);
+            ctx.moveTo(halfX + valueR / 2 * mult, halfY - 3);
+            ctx.lineTo(halfX + valueR / 2 * mult, halfY + 3);
+            ctx.moveTo(halfX + valueR * mult, halfY - 3);
+            ctx.lineTo(halfX + valueR * mult, halfY + 3);
+            ctx.moveTo(halfX - 3, halfY - valueR * mult);
+            ctx.lineTo(halfX + 3, halfY - valueR * mult);
+            ctx.moveTo(halfX - 3, halfY - valueR / 2 * mult);
+            ctx.lineTo(halfX + 3, halfY - valueR / 2 * mult);
+            ctx.moveTo(halfX - 3, halfY + valueR / 2 * mult);
+            ctx.lineTo(halfX + 3, halfY + valueR / 2 * mult);
+            ctx.moveTo(halfX - 3, halfY + valueR * mult);
+            ctx.lineTo(halfX + 3, halfY + valueR * mult);
             ctx.stroke();
         };
-        window.onload = function(){
+        window.onload = function () {
             repaintCanvas();
         }
         var addPointButton = document.getElementById("form:addButton");
         canvas.onclick = function (event) {
-            alert('onclick');
-            var x = (event.offsetX-canvas.width/2)/(canvas.width/10);
-            var y = (event.offsetY-canvas.height/2)/(-canvas.width/10);
+            var x = ((event.offsetX - canvas.width / 2) / (mult)).toFixed(3);
+            var y = ((event.offsetY - canvas.height / 2) / (-mult)).toFixed(3);
             var oldX = document.getElementById('form:pseudoX').value;
             var oldY = document.getElementById('form:y').value;
             document.getElementById('form:pseudoX').value = x;
             document.getElementById('form:y').value = y;
             //ПРИСВОИТЬ ПОЛЯМ X Y КООРДИНАТЫ ТОЧЕК
-            addPointButton.click();
-            addPoint({"status":"success"});
-            document.getElementById('form:pseudoX').value = x;
-            document.getElementById('form:y').value = y;
-            //НАРИСОВАТЬ ТОЧКУ
-            //ВЕРНУТЬ ПОЛЯМ X Y СТАРЫЕ ЗНАЧЕНИЯ
+            addPointButton.onclick();
+            document.getElementById('form:pseudoX').value = oldX;
+            document.getElementById('form:y').value = oldY;
         }
+
         function repaintCanvas() {
             var currentR = Number(document.getElementById('form:pseudoR').value);
             printCanvas(currentR);
-            var points = document.getElementById('table').lastElementChild.children;
+            var points = document.getElementById('secondForm:table').lastElementChild.children;
             var r;
-            for(var i=0;points.length>i;i++){
+            for (var i = 0; points.length > i; i++) {
                 r = Number(points[i].children[2].innerHTML);
-                if(r == currentR){
+                if (r == currentR) {
                     printPoint(points[i].children[0].innerHTML, points[i].children[1].innerHTML, contains(points[i].children[3].innerHTML, 't') ? 'green' : 'red');
                 }
             }
         }
+
         function addPoint(data) {
             var status = data.status;
-            switch(status){
+            switch (status) {
                 case "success":
-                    var lastLine = document.getElementById('table').lastElementChild.lastElementChild;
+                    var lastLine = document.getElementById('secondForm:table').lastElementChild.lastElementChild;
                     var thisX = lastLine.children[0].innerHTML;
-                    var thisY = lastLine.children[1].innerHTML;
-                    var thisIsHitted = lastLine.children[3].innerHTML;
-                    printPoint(thisX, thisY, contains(thisIsHitted, 't') ? 'green' : 'red');
+                    if (thisX != '') {
+                        thisX = Number(thisX);
+                        var thisY = Number(lastLine.children[1].innerHTML);
+                        var thisIsHitted = lastLine.children[3].innerHTML;
+                        var thisR = Number(lastLine.children[2].innerHTML);
+                        if (thisR === Number(document.getElementById('form:pseudoR').value)) {
+                            printPoint(thisX, thisY, thisIsHitted.trim() == 'true' ? 'green' : 'red');
+                        }
+                    }
                     break;
             }
         }
