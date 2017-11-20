@@ -11,14 +11,14 @@
         <title>Special For You</title>
         <h:outputStylesheet>
             body {
-                background-image: url(767.jpg);
+                background-image: url(resources/images/767.jpg);
                 background-attachment: fixed;
                 background-size: 100%;
             }
 
             header {
                 text-align: right;
-                background: url(ocean4.jpg) center bottom;
+                background: url(resources/images/ocean4.jpg) center bottom;
                 font-family: fantasy;
                 color: #b5fff8;
                 outline: 3px solid #000000;
@@ -110,12 +110,11 @@
 
             .table {
                 width: 100%;
-                background: url(ocean9.jpg);
+                background: url(resources/images/ocean9.jpg);
                 outline: 3px solid #000000;
                 border: 3px solid #fff;
                 margin-top: 5px;
             }
-
         </h:outputStylesheet>
     <h:outputScript>
         function changeX(x) {
@@ -178,10 +177,10 @@
                 <h:message for="pseudoR" id="mesR"/>
                 <br/>
             </div>
-            <div id="right" class="right">
+            <div class="right">
                 <h:commandButton class="begin" action="toBeginning" value="To beginning page"/>
                 <audio controls="x">
-                    <source src="ariel.mp3" type="audio/mp3"/>
+                    <source src="resources/music/ariel.mp3" type="audio/mp3"/>
                 </audio>
                 <h:dataTable id="table" class="table" value="#{controller.points}" var="o" border="1">
                     <h:column>
@@ -206,6 +205,15 @@
 
 
     <h:outputScript>
+        var selectedButton;
+        document.getElementById('XButtons').onclick = function () {
+            if(!event.target.classList.contains('Xka')) return;
+            if(selectedButton){
+                selectedButton.classList.remove('highlight');
+            }
+            selectedButton = event.target;
+            selectedButton.classList.add('highlight');
+        }
         function contains(str, char) {
             for (var i = 0; str.length > i; i++) {
                 if (str.charAt(i) == char) return true;
@@ -225,7 +233,7 @@
             ctx.beginPath();
             ctx.moveTo(canvas.width / 2.0 + x * mult, canvas.height / 2.0 - y * mult);
             ctx.fillStyle = color;
-            ctx.arc(canvas.width / 2.0 + x * mult, canvas.height / 2.0 - y * mult, 4, 0, 2.0 * Math.PI, true);
+            ctx.arc(canvas.width / 2.0 + x * mult, canvas.height / 2.0 - y * mult, 3, 0, 2.0 * Math.PI, true);
             ctx.fill();
             ctx.closePath();
         }
@@ -332,7 +340,8 @@
             for (var i = 0; points.length > i; i++) {
                 r = Number(points[i].children[2].innerHTML);
                 if (r == currentR) {
-                    printPoint(points[i].children[0].innerHTML, points[i].children[1].innerHTML, contains(points[i].children[3].innerHTML, 't') ? 'green' : 'red');
+                    printPoint(points[i].children[0].innerHTML, points[i].children[1].innerHTML,
+                            contains(points[i].children[3].innerHTML, 't') ? 'green' : 'red');
                 }
             }
         }

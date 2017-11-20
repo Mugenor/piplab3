@@ -3,18 +3,18 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <link rel="shortcut icon" href="favicon.png" type="image/png" />
+  <link rel="shortcut icon" href="resources/images/favicon.png" type="image/png" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <title>Special For You</title>
   <style>
     body {
-      background-image: url(767.jpg);
+      background-image: url(resources/images/767.jpg);
       background-attachment: fixed;
       background-size: 100%;
     }
     header {
       text-align: right;
-      background: url(ocean4.jpg) center bottom;
+      background: url(resources/images/ocean4.jpg) center bottom;
       font-family: fantasy;
       color: #b5fff8;
       outline: 3px solid #000000;
@@ -32,7 +32,7 @@
     #form {
       outline: 3px solid #000000;
       border: 3px solid #fff;
-      background: url(ocean8.jpg);
+      background: url(resources/images/ocean8.jpg);
       height: 22%;
       width: 20%;
       margin-top: 1%;
@@ -71,7 +71,7 @@
       top: 24.5%;
     }
     #tableRes {
-      background: url(ocean9.jpg);
+      background: url(resources/images/ocean9.jpg);
       width: 20%;
       color: #00115e;
       top: 43%;
@@ -247,8 +247,8 @@
     printCanvas(2);
 </script>
 
-<audio src="ariel.mp3" autoplay loop controls></audio>
-<img src="graph.jpg" width="22%" height="16%" alt="Not found"/>
+<audio src="resources/music/ariel.mp3" autoplay loop controls></audio>
+<img src="resources/images/graph.jpg" width="22%" height="16%" alt="Not found"/>
 <table id="tableRes" cellpadding="3%" border="1%">
   <tbody id="tbody">
   <tr>

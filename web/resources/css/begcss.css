@@ -1,0 +1,47 @@
+
+body {
+    background-image: url(images/767.jpg);
+    background-attachment: fixed;
+    background-size: 100%;
+}
+
+header {
+    text-align: right;
+    background: url(images/ocean4.jpg) center bottom;
+    font-family: fantasy;
+    color: #b5fff8;
+    outline: 3px solid #000000;
+    border: 3px solid #fff;
+    padding-bottom: 0.4%;
+    padding-right: 1.5%;
+}
+
+#name {
+    font-size: 270%;
+}
+
+#group {
+    font-size: 150%;
+}
+
+#clock {
+    float: left;
+    font-size: 130%;
+    margin-left: 1%;
+    margin-top: 0.5%;
+}
+
+.linkButton {
+    float: right;
+    margin-top: 8px;
+    width: 15%;
+    outline: 3px solid #000000;
+    border: 3px solid #fff;
+    background: #b5fff8;
+    font-size: 12pt;
+    color: #001379;
+}
+
+.linkButton:hover {
+    background: #a5d6f3;
+}
