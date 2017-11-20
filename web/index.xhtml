@@ -65,7 +65,7 @@
             canvas {
                 float: left;
             }
-            
+
             .highlight {
                 background: #82f7ff;
             }
@@ -308,6 +308,8 @@
                         var thisR = Number(lastLine.children[2].innerHTML);
                         if (thisR === Number(document.getElementById('form:pseudoR').value)) {
                             printPoint(thisX, thisY, thisIsHitted.trim() == 'true' ? 'green' : 'red');
+                            document.body.setAttribute('style', thisIsHitted.trim() == 'true' ? 'background-image: url(images/ariel.gif);' :
+                                    'background-image: url(images/ariel2.gif);');
                         }
                     }
                     break;
