@@ -7,78 +7,10 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ace="http://www.icefaces.org/icefaces/components">
     <h:head>
-        <h:outputStylesheet>
-            body {
-                background-image: url(resources/images/767.jpg);
-                background-attachment: fixed;
-                background-size: 100%;
-            }
-
-            header {
-                text-align: right;
-                background: url(resources/images/ocean4.jpg) center bottom;
-                font-family: fantasy;
-                color: #b5fff8;
-                outline: 3px solid #000000;
-                border: 3px solid #fff;
-                padding-bottom: 0.4%;
-                padding-right: 1.5%;
-            }
-
-            #name {
-                font-size: 270%;
-            }
-
-            #group {
-                font-size: 150%;
-            }
-
-            #right {
-                float: right;
-                margin-top: 8px;
-                width: 22%;
-                color: #001379;
-            }
-
-            .begin {
-                width: 100%;
-                outline: 3px solid #000000;
-                border: 3px solid #fff;
-                background: #b5fff8;
-                font-size: 12pt;
-                color: #001379;
-                margin-top: 4px;
-            }
-
-            .table {
-                width: 100%;
-                background: url(resources/images/ocean9.jpg);
-                outline: 3px solid #000000;
-                border: 3px solid #fff;
-                margin-top: 8px;
-            }
-
-            .pseudo {
-                hidden: true;
-            }
-
-            canvas {
-                float: left;
-            }
-
-            .highlight {
-                background: #82f7ff;
-            }
-        </h:outputStylesheet>
-    <h:outputScript>
-        function changeX(x) {
-            document.getElementById('form:pseudoX').value=x.toString();
-        }
-        function changeR() {
-            var r = document.getElementById('form:r_hidden').value;
-            document.getElementById('form:pseudoR').value=r;
-        }
-    </h:outputScript>
+        <link rel="shortcut icon" href="resources/images/favicon.png" type="image/png" />
+        <title>Special For You</title>
+        <h:outputStylesheet library="css" name="indexcss.css"/>
+        <h:outputScript library="js" name="indexjs.js" target="body"/>
     </h:head>
     <h:body>
         <header>
@@ -90,48 +22,52 @@
                 P3211, вариант 372
             </div>
         </header>
-        <h:form id="form">
-            <div id="XButtons">
-                <h:commandButton styleClass="Xka" onclick="changeX(-2.0);" value="-2.0"/>
-                <h:commandButton styleClass="Xka" onclick="changeX(-1.5);" value="-1.5"/>
-                <h:commandButton styleClass="Xka" onclick="changeX(-1.0);" value="-1.0"/>
-                <h:commandButton styleClass="Xka" onclick="changeX(-0.5);" value="-0.5"/>
-                <h:commandButton styleClass="Xka" onclick="changeX(0.0);" value="0.0"/>
-                <h:commandButton styleClass="Xka" onclick="changeX(0.5);" value="0.5"/>
-                <h:commandButton styleClass="Xka" onclick="changeX(1.0);" value="1.0"/>
-                <h:commandButton styleClass="Xka" onclick="changeX(1.5);" value="1.5"/>
-                <h:commandButton styleClass="Xka" onclick="changeX(2.0);" value="2.0"/>
-            </div>
-            <h:inputText maxlength="5" id="pseudoX" styleClass="pseudo" value="#{controller.point.x}" rendered="true" required="true"
-                         requiredMessage="required" converterMessage="not a valid number">
-                <f:validator validatorId="XValidator"/>
-            </h:inputText>
-            <h:message id="mesX" for="pseudoX"/>
-            <br/>
-            <h:inputText maxlength="5" id="y" value="#{controller.point.y}" rendered="true" required="true"
-                         requiredMessage="required" converterMessage="not a valid number">
-                <f:validator validatorId="YValidator"/>
-            </h:inputText>
-            <h:message id="mesY" for="y"/>
-            <br/>
-            <h:inputText maxlength="5" id="pseudoR" styleClass="pseudo" value="#{controller.point.r}" rendered="true" required="true"
-                         requiredMessage="required" converterMessage="not a valid number">
-                <f:validator validatorId="RValidator"/>
-        </h:inputText>
-            <h:message for="pseudoR" id="mesR"/>
-            <br/>
-            <ace:sliderEntry onSlideEnd="changeR(); repaintCanvas();" id="r" length="100px" min="1" max="4" stepPercent="16.6666666666666666666" showLabels="true"/>
-            <h:commandButton id="addButton" value="Add point">
-                <f:ajax onevent="addPoint" event="click" execute="form:pseudoX form:y form:pseudoR" listener="#{controller.addPoint}" render="secondForm:table mesX mesY mesR"/>
-            </h:commandButton><br/>
-        </h:form>
 
-        <h:form id="secondForm">
-            <div id="right">
+        <h:form id="form">
+            <div class="left">
+                <div class="leftTop">
+                <div id="buttons" class="inLeft">
+                    <h:commandButton class="Xclass" onclick="changeX(-2.0);" value="-2.0"/>
+                    <h:commandButton class="Xclass" onclick="changeX(-1.5);" value="-1.5"/>
+                    <h:commandButton class="Xclass" onclick="changeX(-1.0);" value="-1.0"/>
+                    <h:commandButton class="Xclass" onclick="changeX(-0.5);" value="-0.5"/>
+                    <h:commandButton class="Xclass" onclick="changeX(0.0);" value="0.0"/>
+                    <h:commandButton class="Xclass" onclick="changeX(0.5);" value="0.5"/>
+                    <h:commandButton class="Xclass" onclick="changeX(1.0);" value="1.0"/>
+                    <h:commandButton class="Xclass" onclick="changeX(1.5);" value="1.5"/>
+                    <h:commandButton class="Xclass" onclick="changeX(2.0);" value="2.0"/>
+                </div>
+                <h:inputText styleClass="inLeft yy" maxlength="5" id="y" value="#{controller.point.y}" rendered="true" required="true"
+                             requiredMessage="required" converterMessage="not a valid number">
+                    <f:validator validatorId="YValidator"/>
+                </h:inputText>
+                <h:message id="mesY" for="y"/>
+                <ace:sliderEntry styleClass="inLeft" onSlideEnd="changeR(); repaintCanvas();" id="r" length="100px" min="1" max="4" stepPercent="16.6666666666666666666" showLabels="true"/>
+                <div class="oneRow">
+                    <h:commandButton styleClass="inLeft addButton" id="addButton" value="Add point">
+                        <f:ajax onevent="addPoint" event="click" execute="pseudoX y pseudoR" listener="#{controller.addPoint}" render="table mesX mesY mesR"/>
+                    </h:commandButton>
+                    <h:message id="mesX" for="pseudoX"/>
+                </div>
+                </div>
+                <canvas id="canvas" class="inLeft" width="450px" height="400px"/>
+                <h:inputText maxlength="5" id="pseudoX" styleClass="pseudo" value="#{controller.point.x}" rendered="true" required="true"
+                             requiredMessage="required" converterMessage="not a valid number">
+                    <f:validator validatorId="XValidator"/>
+                </h:inputText>
+                <br/>
+                <h:inputText maxlength="5" id="pseudoR" styleClass="pseudo" value="#{controller.point.r}" rendered="true" required="true"
+                             requiredMessage="required" converterMessage="not a valid number">
+                    <f:validator validatorId="RValidator"/>
+                </h:inputText>
+                <h:message for="pseudoR" id="mesR"/>
+                <br/>
+            </div>
+            <div class="right">
+                <h:commandButton class="begin" action="toBeginning" value="To beginning page"/>
                 <audio controls="x">
                     <source src="resources/music/ariel.mp3" type="audio/mp3"/>
                 </audio>
-                <h:commandButton class="begin" action="toBeginning" value="To beginning page"/>
                 <h:dataTable id="table" class="table" value="#{controller.points}" var="o" border="1">
                     <h:column>
                         <f:facet name="header">X</f:facet>
@@ -152,170 +88,5 @@
                 </h:dataTable>
             </div>
         </h:form>
-        <canvas id="canvas" width="400px" height="300px"/>
-    <h:outputScript>
-        var selectedButton;
-        document.getElementById('XButtons').onclick = function () {
-            if(!event.target.classList.contains('Xka')) return;
-            if(selectedButton){
-                selectedButton.classList.remove('highlight');
-            }
-            selectedButton = event.target;
-            selectedButton.classList.add('highlight');
-        }
-        function contains(str, char) {
-            for (var i = 0; str.length > i; i++) {
-                if (str.charAt(i) == char) return true;
-            }
-            return false;
-        }
-
-        var canvas = document.getElementById("canvas");
-        var ctx = canvas.getContext('2d');
-        var mult = canvas.width / 15;
-        var halfX = canvas.width / 2;
-        var halfY = canvas.height / 2;
-
-        function printPoint(x, y, color) {
-            x = Number(x);
-            y = Number(y);
-            ctx.beginPath();
-            ctx.moveTo(canvas.width / 2.0 + x * mult, canvas.height / 2.0 - y * mult);
-            ctx.fillStyle = color;
-            ctx.arc(canvas.width / 2.0 + x * mult, canvas.height / 2.0 - y * mult, 3, 0, 2.0 * Math.PI, true);
-            ctx.fill();
-            ctx.closePath();
-        }
-
-        function axis(x, y) {
-            ctx.moveTo(halfX, halfY);
-            ctx.lineTo(x, y);
-        }
-
-        var printCanvas = function (valueR) {
-            var padXS = canvas.width / 10;
-            var padYS = canvas.height / 10;
-            var padXsmall = canvas.width / 25;
-            var padYsmall = canvas.height / 20;
-            ctx.beginPath();
-            ctx.fillStyle = "white";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.closePath();
-            ctx.fillStyle = "#22b9ff";
-            ctx.strokeStyle = "#22b9ff";
-            ctx.beginPath();
-            ctx.moveTo(halfX, halfY);
-            ctx.lineTo(halfX, halfY - valueR * mult / 2.0);
-            ctx.lineTo(halfX - valueR * mult, halfY);
-            ctx.lineTo(halfX, halfY);
-            ctx.rect(halfX - valueR * mult, halfY, valueR * mult, valueR * mult / 2.0);
-            ctx.moveTo(halfX, halfY);
-            ctx.arc(halfX, halfY, valueR * mult, 1 / 2 * Math.PI, 0, true);
-            ctx.stroke();
-            ctx.fill();
-            ctx.closePath();
-            ctx.beginPath();
-            ctx.fillStyle = "black";
-            ctx.strokeStyle = "black";
-            axis(halfX, padYsmall);
-            ctx.lineTo(halfX - 3, padYS);
-            ctx.moveTo(halfX, padYsmall);
-            ctx.lineTo(halfX + 3, padYS);
-            axis(halfX, canvas.height - padYsmall);
-            axis(padXS, halfY);
-            axis(canvas.width - padXS, halfY);
-            ctx.lineTo(canvas.width - padXS - padXsmall, halfY - 3);
-            ctx.moveTo(canvas.width - padXS, halfY);
-            ctx.lineTo(canvas.width - padXS - padXsmall, halfY + 3);
-            ctx.stroke();
-            ctx.font = "11pt Arial";
-            ctx.fillText("X", canvas.width - padXS - padXsmall + 3, halfY + padYsmall);
-            ctx.fillText("Y", halfX - padXsmall + 3, padYS - 3);
-            ctx.closePath();
-            ctx.fillStyle = "black";
-            ctx.strokeStyle = "black";
-            ctx.font = (valueR * 5.5 > 11) ? "11pt Arial" : valueR * 5.5 + "pt Arial";
-            // ctx.font = (valueR*5.5 ? 7) ? "10pt Arial" : valueR*5.5 + "pt Arial";
-            //КАК ИСПОЛЬЗОВАТЬ ЗНАК МЕНЬШЕ В JSF?
-            ctx.fillText("0", halfX - valueR * 5, halfY + valueR * 7);
-            ctx.fillText(valueR / 2, halfX - valueR * 2 + valueR / 2.0 * mult, halfY + valueR * 7);
-            ctx.fillText(valueR, halfX - valueR * 2 + valueR * mult, halfY + valueR * 7);
-            ctx.fillText(valueR, halfX + valueR * 2, halfY + valueR * 3 - valueR * mult);
-            ctx.fillText(valueR / 2, halfX + valueR * 2, halfY + valueR * 3 - valueR * mult / 2);
-            ctx.fillText(-valueR, halfX - valueR * 5 - valueR * mult, halfY + valueR * 7);
-            ctx.fillText(-valueR / 2, halfX - valueR * 5 - valueR / 2 * mult, halfY + valueR * 7);
-            ctx.fillText(-valueR, halfX + valueR * 2, halfY + valueR * 2 + valueR * mult);
-            ctx.fillText(-valueR / 2, halfX + valueR * 2, halfY + valueR * 2 + valueR * mult / 2);
-            ctx.moveTo(halfX - valueR * mult, halfY - 3);
-            ctx.lineTo(halfX - valueR * mult, halfY + 3);
-            ctx.moveTo(halfX - valueR / 2 * mult, halfY - 3);
-            ctx.lineTo(halfX - valueR / 2 * mult, halfY + 3);
-            ctx.moveTo(halfX + valueR / 2 * mult, halfY - 3);
-            ctx.lineTo(halfX + valueR / 2 * mult, halfY + 3);
-            ctx.moveTo(halfX + valueR * mult, halfY - 3);
-            ctx.lineTo(halfX + valueR * mult, halfY + 3);
-            ctx.moveTo(halfX - 3, halfY - valueR * mult);
-            ctx.lineTo(halfX + 3, halfY - valueR * mult);
-            ctx.moveTo(halfX - 3, halfY - valueR / 2 * mult);
-            ctx.lineTo(halfX + 3, halfY - valueR / 2 * mult);
-            ctx.moveTo(halfX - 3, halfY + valueR / 2 * mult);
-            ctx.lineTo(halfX + 3, halfY + valueR / 2 * mult);
-            ctx.moveTo(halfX - 3, halfY + valueR * mult);
-            ctx.lineTo(halfX + 3, halfY + valueR * mult);
-            ctx.stroke();
-        };
-        window.onload = function () {
-            repaintCanvas();
-        }
-        var addPointButton = document.getElementById("form:addButton");
-        canvas.onclick = function (event) {
-            var x = ((event.offsetX - canvas.width / 2) / (mult)).toFixed(3);
-            var y = ((event.offsetY - canvas.height / 2) / (-mult)).toFixed(3);
-            var oldX = document.getElementById('form:pseudoX').value;
-            var oldY = document.getElementById('form:y').value;
-            document.getElementById('form:pseudoX').value = x;
-            document.getElementById('form:y').value = y;
-            //ПРИСВОИТЬ ПОЛЯМ X Y КООРДИНАТЫ ТОЧЕК
-            addPointButton.onclick();
-            document.getElementById('form:pseudoX').value = oldX;
-            document.getElementById('form:y').value = oldY;
-        }
-
-        function repaintCanvas() {
-            var currentR = Number(document.getElementById('form:pseudoR').value);
-            printCanvas(currentR);
-            var points = document.getElementById('secondForm:table').lastElementChild.children;
-            var r;
-            for (var i = 0; points.length > i; i++) {
-                r = Number(points[i].children[2].innerHTML);
-                if (r == currentR) {
-                    printPoint(points[i].children[0].innerHTML, points[i].children[1].innerHTML,
-                            contains(points[i].children[3].innerHTML, 't') ? 'green' : 'red');
-                }
-            }
-        }
-
-        function addPoint(data) {
-            var status = data.status;
-            switch (status) {
-                case "success":
-                    var lastLine = document.getElementById('secondForm:table').lastElementChild.lastElementChild;
-                    var thisX = lastLine.children[0].innerHTML;
-                    if (thisX != '') {
-                        thisX = Number(thisX);
-                        var thisY = Number(lastLine.children[1].innerHTML);
-                        var thisIsHitted = lastLine.children[3].innerHTML;
-                        var thisR = Number(lastLine.children[2].innerHTML);
-                        if (thisR === Number(document.getElementById('form:pseudoR').value)) {
-                            printPoint(thisX, thisY, thisIsHitted.trim() == 'true' ? 'green' : 'red');
-                            document.body.setAttribute('style', thisIsHitted.trim() == 'true' ? 'background-image: url(images/ariel.gif);' :
-                                    'background-image: url(images/ariel2.gif);');
-                        }
-                    }
-                    break;
-            }
-        }
-    </h:outputScript>
-
 </h:body>
 </html>

@@ -1,0 +1,113 @@
+body {
+    background-image: url(images/767.jpg);
+    background-attachment: fixed;
+    background-size: 100%;
+}
+
+header {
+    text-align: right;
+    background: url(images/ocean4.jpg) center bottom;
+    font-family: fantasy;
+    color: #b5fff8;
+    outline: 3px solid #000000;
+    border: 3px solid #fff;
+    padding-bottom: 0.4%;
+    padding-right: 1.5%;
+}
+
+#name {
+    font-size: 270%;
+}
+
+#group {
+    font-size: 150%;
+}
+
+.left {
+    float: left;
+    width: 34.5%;
+    padding-left: 3px;
+    color: #001379;
+}
+
+.Xclass {
+    margin-right: 3px;
+    background: #b5fff8;
+    color: #001379;
+}
+
+.Xclass:hover, .addButton:hover, .begin:hover{
+    background: #a5d6f3;
+}
+
+.inLeft {
+    margin-top: 5px;
+}
+
+.addButton {
+    background: #b5fff8;
+    color: #001379;
+}
+
+canvas {
+    outline: 3px solid #000000;
+    border: 3px solid #fff;
+}
+
+.leftTop {
+    background: url(images/ocean8.jpg);
+    outline: 3px solid #000000;
+    border: 3px solid #fff;
+    padding-left: 5px;
+    padding-top: 3px;
+    margin-top: 8px;
+    margin-bottom: 5px;
+    color: #b5fff8;
+}
+
+.yy {
+    width: 30%;
+}
+
+.oneRow {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.right {
+    float: right;
+    width: 23%;
+    color: #001379;
+}
+
+.begin {
+    width: 100%;
+    outline: 3px solid #000000;
+    border: 3px solid #fff;
+    background: #b5fff8;
+    font-size: 12pt;
+    color: #001379;
+    margin-top: 8px;
+}
+
+audio {
+    outline: 3px solid #000000;
+    border: 3px solid #fff;
+    margin-top: 8px;
+}
+
+.table {
+    width: 100%;
+    background: url(images/ocean9.jpg);
+    outline: 3px solid #000000;
+    border: 3px solid #fff;
+    margin-top: 5px;
+}
+
+.highlight {
+    background: #6dafff;
+}
+
+.pseudo {
+    visibility: hidden;
+}
