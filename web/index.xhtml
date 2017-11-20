@@ -9,14 +9,14 @@
     <h:head>
         <h:outputStylesheet>
             body {
-                background-image: url(767.jpg);
+                background-image: url(resources/images/767.jpg);
                 background-attachment: fixed;
                 background-size: 100%;
             }
 
             header {
                 text-align: right;
-                background: url(ocean4.jpg) center bottom;
+                background: url(resources/images/ocean4.jpg) center bottom;
                 font-family: fantasy;
                 color: #b5fff8;
                 outline: 3px solid #000000;
@@ -39,6 +39,7 @@
                 width: 22%;
                 color: #001379;
             }
+
             .begin {
                 width: 100%;
                 outline: 3px solid #000000;
@@ -51,7 +52,7 @@
 
             .table {
                 width: 100%;
-                background: url(ocean9.jpg);
+                background: url(resources/images/ocean9.jpg);
                 outline: 3px solid #000000;
                 border: 3px solid #fff;
                 margin-top: 8px;
@@ -60,8 +61,13 @@
             .pseudo {
                 hidden: true;
             }
-            canvas{
+
+            canvas {
                 float: left;
+            }
+            
+            .highlight {
+                background: #82f7ff;
             }
         </h:outputStylesheet>
     <h:outputScript>
@@ -85,16 +91,16 @@
             </div>
         </header>
         <h:form id="form">
-            <div>
-                <h:commandButton onclick="changeX(-2.0);" value="-2.0"/>
-                <h:commandButton onclick="changeX(-1.5);" value="-1.5"/>
-                <h:commandButton onclick="changeX(-1.0);" value="-1.0"/>
-                <h:commandButton onclick="changeX(-0.5);" value="-0.5"/>
-                <h:commandButton onclick="changeX(0.0);" value="0.0"/>
-                <h:commandButton onclick="changeX(0.5);" value="0.5"/>
-                <h:commandButton onclick="changeX(1.0);" value="1.0"/>
-                <h:commandButton onclick="changeX(1.5);" value="1.5"/>
-                <h:commandButton onclick="changeX(2.0);" value="2.0"/>
+            <div id="XButtons">
+                <h:commandButton styleClass="Xka" onclick="changeX(-2.0);" value="-2.0"/>
+                <h:commandButton styleClass="Xka" onclick="changeX(-1.5);" value="-1.5"/>
+                <h:commandButton styleClass="Xka" onclick="changeX(-1.0);" value="-1.0"/>
+                <h:commandButton styleClass="Xka" onclick="changeX(-0.5);" value="-0.5"/>
+                <h:commandButton styleClass="Xka" onclick="changeX(0.0);" value="0.0"/>
+                <h:commandButton styleClass="Xka" onclick="changeX(0.5);" value="0.5"/>
+                <h:commandButton styleClass="Xka" onclick="changeX(1.0);" value="1.0"/>
+                <h:commandButton styleClass="Xka" onclick="changeX(1.5);" value="1.5"/>
+                <h:commandButton styleClass="Xka" onclick="changeX(2.0);" value="2.0"/>
             </div>
             <h:inputText maxlength="5" id="pseudoX" styleClass="pseudo" value="#{controller.point.x}" rendered="true" required="true"
                          requiredMessage="required" converterMessage="not a valid number">
@@ -123,7 +129,7 @@
         <h:form id="secondForm">
             <div id="right">
                 <audio controls="x">
-                    <source src="ariel.mp3" type="audio/mp3"/>
+                    <source src="resources/music/ariel.mp3" type="audio/mp3"/>
                 </audio>
                 <h:commandButton class="begin" action="toBeginning" value="To beginning page"/>
                 <h:dataTable id="table" class="table" value="#{controller.points}" var="o" border="1">
@@ -148,6 +154,15 @@
         </h:form>
         <canvas id="canvas" width="400px" height="300px"/>
     <h:outputScript>
+        var selectedButton;
+        document.getElementById('XButtons').onclick = function () {
+            if(!event.target.classList.contains('Xka')) return;
+            if(selectedButton){
+                selectedButton.classList.remove('highlight');
+            }
+            selectedButton = event.target;
+            selectedButton.classList.add('highlight');
+        }
         function contains(str, char) {
             for (var i = 0; str.length > i; i++) {
                 if (str.charAt(i) == char) return true;
@@ -167,7 +182,7 @@
             ctx.beginPath();
             ctx.moveTo(canvas.width / 2.0 + x * mult, canvas.height / 2.0 - y * mult);
             ctx.fillStyle = color;
-            ctx.arc(canvas.width / 2.0 + x * mult, canvas.height / 2.0 - y * mult, 4, 0, 2.0 * Math.PI, true);
+            ctx.arc(canvas.width / 2.0 + x * mult, canvas.height / 2.0 - y * mult, 3, 0, 2.0 * Math.PI, true);
             ctx.fill();
             ctx.closePath();
         }
@@ -274,7 +289,8 @@
             for (var i = 0; points.length > i; i++) {
                 r = Number(points[i].children[2].innerHTML);
                 if (r == currentR) {
-                    printPoint(points[i].children[0].innerHTML, points[i].children[1].innerHTML, contains(points[i].children[3].innerHTML, 't') ? 'green' : 'red');
+                    printPoint(points[i].children[0].innerHTML, points[i].children[1].innerHTML,
+                            contains(points[i].children[3].innerHTML, 't') ? 'green' : 'red');
                 }
             }
         }

@@ -6,63 +6,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-    <h:outputStylesheet>
-        body {
-            background-image: url(767.jpg);
-            background-attachment: fixed;
-            background-size: 100%;
-        }
-
-        header {
-            text-align: right;
-            background: url(ocean4.jpg) center bottom;
-            font-family: fantasy;
-            color: #b5fff8;
-            outline: 3px solid #000000;
-            border: 3px solid #fff;
-            padding-bottom: 0.4%;
-            padding-right: 1.5%;
-        }
-
-        #name {
-            font-size: 270%;
-        }
-
-        #group {
-            font-size: 150%;
-        }
-
-        #clock {
-            float: left;
-            font-size: 130%;
-            margin-left: 1%;
-            margin-top: 0.5%;
-        }
-
-        .linkButton {
-            float: right;
-            margin-top: 8px;
-            width: 15%;
-            outline: 3px solid #000000;
-            border: 3px solid #fff;
-            background: #b5fff8;
-            font-size: 12pt;
-            color: #001379;
-        }
-    </h:outputStylesheet>
-    <h:outputScript>
-        window.onload = function(){
-            var now = new Date();
-            var clock = document.getElementById("clock");
-            clock.innerHTML = now.toLocaleString();
-
-            window.setInterval(function(){
-                var now = new Date();
-                var clock = document.getElementById("clock");
-                clock.innerHTML = now.toLocaleString();
-            }, 6000);
-        };
-    </h:outputScript>
+    <h:outputStylesheet library="css" name="begcss.css"/>
+    <h:outputScript library="js" name="begjs.js"/>
 </h:head>
 <h:body>
     <header>
